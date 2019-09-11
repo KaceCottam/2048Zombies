@@ -57,9 +57,7 @@ game: ${SRCDIR}/main.cpp
 fetch-json: chkinclude
 	@if [ ! -f "${INCDIR}/json.hpp" ]; then\
 		echo "Retrieving the latest version of json...";\
-		git clone https://github.com/nlohmann/json.git ${TEMPDIR};\
-		cp -f ${TEMPDIR}/single_include/nlohmann/json.hpp ${INCDIR};\
-		rm -fr ${TEMPDIR};\
+		curl -o ${INCDIR}/json.hpp "https://raw.githubusercontent.com/nlohmann/json/develop/single_include/nlohmann/json.hpp"; \
 		echo "...Done";\
 	else \
 		echo "json already exists..."; \
