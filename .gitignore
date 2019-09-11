@@ -1,0 +1,6 @@
+.clang-format
+tags
+bin/
+build/
+lib/
+include/
