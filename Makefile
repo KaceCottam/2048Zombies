@@ -15,6 +15,7 @@ TEMPDIR=temp
 TESTDIR=${SRCDIR}/tests
 
 INCLUDES=-I${INCDIR} -I${SRCDIR}
+DIRS=${OUTDIR} ${OBJDIR} ${INCDIR} ${COVRDIR} ${TEMPDIR}
 
 COVRINFO=${COVRDIR}/coverage.info
 BROWSER=firefox
@@ -52,30 +53,6 @@ install: chkdirs chkdeps game ## Installs the game to the output dir.
 game: ${SRCDIR}/main.cpp
 	${COMPILE}
 
-.PHONY: add-coverage-flag
-add-coverage-flag:
-	${eval CXXARGS+= --coverage}
-
-.PHONY: cover
-cover: chkcovr add-coverage-flag ${TARGET} ## runs gcov, lcov, and genhtml to show coverage.
-	${TARGET}
-	@${GCOV} *.gc* ${GCOVFLAGS}
-	@${LCOV} -o ${COVRINFO} -c -d . ${LCOVFLAGS}
-	@genhtml ${COVRINFO} -o ${COVRDIR}
-	@${BROWSER} ${COVRDIR}/index.html &
-
-.PHONY: fetch-catch
-fetch-catch: chkinclude
-	@if [ ! -f "${INCDIR}/catch.hpp" ]; then\
-		echo "Retrieving the latest version of Catch...";\
-		git clone https://github.com/catchorg/Catch.git ${TEMPDIR};\
-		cp -f ${TEMPDIR}/single_include/catch.hpp ${INCDIR}; \
-		rm -fr ${TEMPDIR};\
-		echo "...Done";\
-	else \
-		echo "Catch already exists..."; \
-	fi
-
 .PHONY: fetch-json
 fetch-json: chkinclude
 	@if [ ! -f "${INCDIR}/json.hpp" ]; then\
@@ -108,5 +85,5 @@ chkdirs: chkout
 
 .PHONY: clean
 clean: ## Cleans the program for a default build state.
-	@rm -vrf ${OUTDIR} ${OBJDIR} ${INCDIR} ${COVRDIR} ${TEMPDIR}
+	@rm -vrf ${DIRS}
 	@rm -vf ./*.gc* ./*/*.gc* ./*/*.info ./*.info
