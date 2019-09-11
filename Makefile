@@ -37,7 +37,7 @@ define CHKDIR
 endef
 
 define COMPILE
-	@echo 'Compiling "$@" with params "${CXXFLAGS}"'
+	@echo 'Compiling "$@" with params: ${CXXFLAGS}'
 	@${CXX} -o ${OUTDIR}/$@ $^ ${CXXFLAGS}
 endef
 
