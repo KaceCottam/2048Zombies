@@ -2,6 +2,7 @@
 #define GAME_STATE_HPP
 
 #include <random>
+#include <optional>
 
 #include <json.hpp>
 
@@ -12,8 +13,8 @@ enum class State { MENU, START, PLAY, WIN, LOSE };
 struct game_state {
   std::mt19937& random;
   State type;
-  nlohmann::json map_json{};
-  Map map{};
+  std::optional<nlohmann::json> map_json{};
+  std::optional<Map> map{};
 };
 
 #endif  // ! GAME_STATE_HPP

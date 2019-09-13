@@ -25,7 +25,7 @@ break;
       // place initial characters
       {
         game_loop({state.random, State::PLAY, state.map_json,
-                   construct_map(state.map_json)});
+                   construct_map(*state.map_json)});
       }
       break;
     case State::PLAY:
@@ -42,24 +42,26 @@ break;
       //
       // continue playing
       {
+        auto json = *state.map_json;
+        auto map = *state.map;
         std::vector<Tile> filtered_civs;
-        std::copy_if(state.map.tiles.begin(), state.map.tiles.end(),
+        std::copy_if(map.tiles.begin(), map.tiles.end(),
                      std::back_inserter(filtered_civs), [](const Tile& t) {
                        return t.type == TileType::CIVILLIAN;
                      });
 
-        if (filtered_civs.size() == 0 && state.map.civillian_size == 0) {
+        if (filtered_civs.size() == 0 && map.civillian_size == 0) {
           game_loop({state.random, State::WIN});
           return;
         }
 
         auto map_with_new_civ =
-            place_civillian(state.map, find_empty(state.map, state.random));
+            place_civillian(map, find_empty(map, state.random));
         auto map_with_better_police = upgrade_police(map_with_new_civ);
         auto map_with_new_police = place_police(
-            map_with_better_police, find_empty(state.map, state.random));
+            map_with_better_police, find_empty(map, state.random));
 
-        display_map(state.map);
+        display_map(map);
 
         auto player_input = get_direction_input();
         auto map_rotated = rotate_board(map_with_new_police, player_input);
@@ -72,7 +74,7 @@ break;
           return;
         }
 
-        game_loop({state.random, State::PLAY, state.map_json, map_merged});
+        game_loop({state.random, State::PLAY, json, map_merged});
       }
       break;
     case State::WIN:
