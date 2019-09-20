@@ -1,8 +1,8 @@
-export CXXARGS
+export ARGS
 
 GCOV=gcov
 LCOV=lcov
-CXXFLAGS=-std=c++17 -Wall -Wextra -Wpedantic -Werror ${INCLUDES} ${CXXARGS}
+CXXFLAGS=-std=c++17 -Wall -Wextra -Wpedantic -Werror ${INCLUDES} ${ARGS}
 GCOVFLAGS=-r -a
 LCOVFLAGS=-q --directory ${SRCDIR} --no-external
 
