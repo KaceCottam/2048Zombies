@@ -33,4 +33,6 @@ int main(int argc, char *argv[]) {
   fmt::print("...Done\n");
 
   auto game_map = *_game_map;
+
+  // TODO continue using game map
 }
