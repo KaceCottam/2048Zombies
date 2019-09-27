@@ -6,14 +6,13 @@ OUT_DIR    := bin
 DOC_DIR    := docs
 
 LIBS       := -lstdc++fs
-LIBS       += -lfmt
+LIBS       += -lfmt `sdl2-config --cflags --libs`
 INCLUDES   := -I${INC_DIR}
 
 SRCS       := ${SRC_DIR}/main.cpp
-SRCS       += ${SRC_DIR}/load_map.cpp
 OBJS       := ${SRCS:${SRC_DIR}/%.cpp=${OBJ_DIR}/%.o}
-DOC_OBJS   := ${DOC_DIR}/map_template.pdf
-DOCS       := ${DOC_OBJS:.md=.pdf}
+DOC_OBJS   := ${DOC_DIR}/_map_template.md
+DOCS       := ${DOC_OBJS:${DOC_DIR}/_%.md=${DOC_DIR}/%.pdf}
 
 EXEC       := game
 
@@ -42,6 +41,8 @@ ${INC_DIR}/nlohmann/json.hpp:
 	@mkdir -pv ${INC_DIR}/nlohmann
 	@curl -s -o $@ "https://raw.githubusercontent.com/nlohmann/json/release/3.7.0/single_include/nlohmann/json.hpp" > /dev/null
 	@echo "...Done"
+
+game: bin/game ## builds the game
 
 docs: ${DOCS} ## Compiles the documentation for the program
 
