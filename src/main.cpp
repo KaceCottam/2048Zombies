@@ -22,4 +22,6 @@ int main(int argc, char *argv[]) {
     return -1;
   }
   fmt::print("...Done\n");
+
+  MapInfo map_info(*game_map);
 }

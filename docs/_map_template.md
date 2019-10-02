@@ -1,18 +1,20 @@
 Maps
----
+===
 
-Maps are a `.json` file that *MUST* include the following:
+Maps are a `json` file that *MUST* include the following:
 
-- size (x : Number, y : Number)
-- win : Number
-- police\_chance : [Number] | size == win-1
+- size `(x : Number, y : Number)`
+- win : `Number`
+- police\_chance : `[Number] : size(police_chance) == win-1`
 
 Optional parameters include:
 
-- blocks [ (x : Number, y : Number) ]
+- blocks : `[ (x : Number, y : Number) ]` = `[]`
+- zombie\_initial : `( x : Number, y : Number, size : Number )`    
+  = { `( 0..size.x, 0..size.y, 2 )` : $\exists A\in$blocks, (x,y) != A }
 
-Example (maps/map1)
-===
+Example (maps/map0)
+---
 
 ```json
 {

@@ -2,10 +2,10 @@
 #define MAP_HPP
 #include <nlohmann/json.hpp>
 
-#include <fstream>
 #include <optional>
-using json = nlohmann::json;
+#include <vector>
 
+using json = nlohmann::json;
 /**
  * @brief a struct that will hold data for tiles
  */
@@ -17,7 +17,7 @@ struct Tile {
     MILITARY,
     BLOCK
   } tile = TileType::EMPTY;
-  int value = 0;
+  unsigned value = 0;
 };
 
 /**
@@ -25,12 +25,15 @@ struct Tile {
  */
 class MapInfo {
 public:
-  MapInfo(int x, int y) : size{x, y}, tile_grid{new Tile[x * y]} {}
+  MapInfo(const json &j);
+
+  unsigned win;
+  std::vector<int> police_chance;
 
   struct {
-    int x, y;
+    unsigned x, y;
   } size;
-  Tile *tile_grid;
+  std::vector<Tile> tile_grid{size.x * size.y, {Tile::TileType::BLOCK}};
 };
 
 /**
@@ -40,16 +43,7 @@ public:
  *
  * @return json
  */
-auto load_map(const char *filename) -> std::optional<json> {
-  std::ifstream file(filename);
-  if (!file.good())
-    return {};
-  try {
-    return json::parse(file);
+auto load_map(const char *filename) -> std::optional<json>;
 
-  } catch (...) { // Unexpected error while parsing
-    return {};
-  }
-}
 #endif // ! MAP_HPP
 

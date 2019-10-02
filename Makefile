@@ -10,6 +10,7 @@ LIBS       += -lfmt `sdl2-config --cflags --libs`
 INCLUDES   := -I${INC_DIR}
 
 SRCS       := ${SRC_DIR}/main.cpp
+SRCS       += ${SRC_DIR}/map.cpp
 OBJS       := ${SRCS:${SRC_DIR}/%.cpp=${OBJ_DIR}/%.o}
 DOC_OBJS   := ${DOC_DIR}/_map_template.md
 DOCS       := ${DOC_OBJS:${DOC_DIR}/_%.md=${DOC_DIR}/%.pdf}
@@ -26,9 +27,11 @@ CXX_FLAGS  := -std=c++17 -O2 ${INCLUDES} ${ARGS}
 
 default: help
 
-all: ${OUT_DIR}/${EXEC} docs ## builds all targets
+all: docs game ## builds all targets
 
-${OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp ${INC_DIR}/nlohmann/json.hpp
+game: bin/${EXEC} ## builds the game
+
+${OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp
 	@mkdir -pv ${OBJ_DIR}
 	${CXX} ${CXX_FLAGS} -c $< -o $@ ${CARGS}
 
@@ -42,7 +45,6 @@ ${INC_DIR}/nlohmann/json.hpp:
 	@curl -s -o $@ "https://raw.githubusercontent.com/nlohmann/json/release/3.7.0/single_include/nlohmann/json.hpp" > /dev/null
 	@echo "...Done"
 
-game: bin/game ## builds the game
 
 docs: ${DOCS} ## Compiles the documentation for the program
 
@@ -72,4 +74,9 @@ clean: ## Cleans all build and output files
 	@find . -name "*.o" -delete
 	@find . -name "*.pdf" -delete
 	@find . -name "${EXEC}" -delete
+
+
+debug: ## Debug for makefile
+	@echo "SRCS: " ${SRCS}
+	@echo "OBJS: " ${OBJS}
 
