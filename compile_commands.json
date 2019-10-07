@@ -1,0 +1,16 @@
+[
+    {
+        "arguments": [
+            "c++",
+            "-c",
+            "-std=c++17",
+            "-O2",
+            "-Iinclude",
+            "-o",
+            "build/main.o",
+            "src/main.cpp"
+        ],
+        "directory": "/home/kace/Dev/2048Zombies",
+        "file": "src/main.cpp"
+    }
+]

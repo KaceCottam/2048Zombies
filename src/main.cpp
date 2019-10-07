@@ -1,6 +1,7 @@
-#include "map.hpp"
+#include <fstream>
+#include <iostream>
 
-#include <fmt/core.h>
+#include "State.hpp"
 
 /**
  * @brief Plays a game called 2048 Zombies on the command line
@@ -14,14 +15,16 @@ int main(int argc, char *argv[]) {
 
   const char *mapName = argc == 1 ? "maps/map0" : argv[1];
 
-  fmt::print("Loading {0}...\n", mapName);
-  // Load map here
-  auto game_map = load_map(mapName);
-  if (!game_map.has_value()) {
-    fmt::print("{0} is not a valid map!\n", mapName);
-    return -1;
+  if (!std::ifstream(mapName).good()) {
+    std::cerr << "ERROR: File \"" << mapName << "\" does not exist! Exiting..."
+              << std::endl;
+    return EXIT_FAILURE;
   }
-  fmt::print("...Done\n");
 
-  MapInfo map_info(*game_map);
+  // game good
+  if (auto status = game_loop(StateInit(mapName))) {
+    std::cerr << "ERROR: " << (*status)->what() << std::endl;
+    delete *status;
+  }
+  return EXIT_SUCCESS;
 }
