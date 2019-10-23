@@ -5,8 +5,6 @@
 
 class MapInfo {
 public:
-  // TODO implement a matrix class
-
 private:
 };
 #endif // ! MAPINFO_HPP

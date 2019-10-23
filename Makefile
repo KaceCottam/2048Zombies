@@ -10,6 +10,7 @@ LIBS       += -lfmt
 INCLUDES   := -I${INC_DIR}
 
 SRCS       := $(shell ls ${SRC_DIR}/*.cpp)
+HEADS      := $(shell ls ${SRC_DIR}/*.hpp)
 OBJS       := ${SRCS:${SRC_DIR}/%.cpp=${OBJ_DIR}/%.o}
 DOC_OBJS   := ${DOC_DIR}/_map_template.md
 DOCS       := ${DOC_OBJS:${DOC_DIR}/_%.md=${DOC_DIR}/%.pdf}
@@ -34,7 +35,7 @@ ${OBJ_DIR}/%.o: ${SRC_DIR}/%.cpp
 	@mkdir -pv ${OBJ_DIR}
 	${CXX} ${CXX_FLAGS} -c $< -o $@ ${CARGS}
 
-${OUT_DIR}/${EXEC}: ${OBJS}
+${OUT_DIR}/${EXEC}: ${OBJS} ${HEADS}
 	@mkdir -pv ${OUT_DIR}
 	${CXX} ${CXX_FLAGS} $^ ${LIBS} -o $@ ${LARGS}
 

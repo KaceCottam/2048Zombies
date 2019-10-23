@@ -17,7 +17,8 @@ public:
     return {};
   }
 
-private:
   const char *mapName;
+
+private:
 };
 #endif // ! STATEINIT_HPP

@@ -9,6 +9,7 @@
 
 #include <exception>
 #include <optional>
+#include <string>
 #include <variant>
 
 // TODO do I need this?
@@ -34,7 +35,8 @@ auto game_loop(const StatePlay &state) -> GameStatus {
 auto game_loop(const StateInit &state) -> GameStatus {
   const auto mapinfo = state.LoadMap();
   if (!mapinfo.has_value())
-    return new std::runtime_error("Invalid file!");
+    return new std::runtime_error(std::string("Invalid file: ") +
+                                  state.mapName + "!");
 
   return game_loop(StatePlay(*mapinfo));
 }
