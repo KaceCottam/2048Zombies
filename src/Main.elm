@@ -18,7 +18,7 @@ type Model = MainMenu | Rules | Level Board | Win | Lose
 
 type Direction = Up | Down | Left | Right
 
-type Message = Play | Move Direction | ReturnToMenu
+type Message = Play | OpenRules | Move Direction | ReturnToMenu
 
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
@@ -29,6 +29,7 @@ update message model =
     nextBoard board = bool Win (bool Lose (Level board) (checkLose board)) (checkWin board)
   in case (message, model) of
     (Play, _)             -> (Level level1, Cmd.none)
+    (OpenRules, _)        -> (Rules, Cmd.none)
     (Move Up, Level b)    -> (nextBoard (Board.mergeUp b), Cmd.none)
     (Move Down, Level b)  -> (nextBoard (Board.mergeDown b), Cmd.none)
     (Move Left, Level b)  -> (nextBoard (Board.mergeLeft b), Cmd.none)
@@ -43,20 +44,21 @@ view model = case model of
       title = "Kace Game"
       titleText = h1 [ style "text-color" "green" ] [ text "2048 Zombies" ]
       playButton = button [ onClick Play ] [ h1 [] [ text "Play game!" ] ]
-    in Document title [ titleText, playButton ]
+      rulesButton = button [ onClick OpenRules ] [ h1 [] [ text "Rules and Explanation" ] ]
+    in Document title [ titleText, playButton, rulesButton ]
 
   Rules ->
     let
       title = "2048 Zombies - Rules"
       content = 
-        [ text "2048 Zombies is a puzzle game where the player controls zombies so that they can eat humans."
-        , text "Every movement the zombies do, the humans will also do."
+        [ p [] [ text "2048 Zombies is a puzzle game where the player controls zombies so that they can eat humans." ]
+        , p [] [ text "Every movement the zombies do, the humans will also do." ]
         , br [] []
-        , text "Walls are brown: they cannot be surpassed by either humans or zombies."
-        , text "Humans are tan with an 'H': they can be eaten by zombies to give zombies +1 movement."
-        , text "Zombies are green with a 'Z' and a number in their name: This number is the amount of spaces they are allowed to move before decaying."
+        , p [] [ text "Walls are brown: they cannot be surpassed by either humans or zombies." ]
+        , p [] [ text "Humans are tan with an 'H': they can be eaten by zombies to give zombies +1 movement." ]
+        , p [] [ text "Zombies are green with a 'Z' and a number in their name: This number is the amount of spaces they are allowed to move before decaying." ]
         , br [] []
-        , text "You can win if all the humans are eaten, but you lose if all the zombies decay."
+        , p [] [ text "You can win if all the humans are eaten, but you lose if all the zombies decay." ]
         ]
 
     in Document title
