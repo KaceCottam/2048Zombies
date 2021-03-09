@@ -40,8 +40,9 @@ view model = case model of
     let
       title = "Happy " ++ mainMenu.color ++ " birthday!"
       birthdayButton = button [ onClick RandomizeColor ] [ text "Happy birthday!" ]
-      birthdayDiv = div [ style "background-color" mainMenu.color, style "height" "100vh" ] [ birthdayButton ]
-    in Document title [ birthdayDiv ]
+      birthdayDiv = div [ style "background-color" mainMenu.color, style "height" "95vh" ] [ birthdayButton ]
+      sourceCodeInformation = div [ style "height" "5vh" ] [ text "Source code hosted at ", (\path -> a [ href path ] [ text path ]) "https://github.com/KaceCottam/2048Zombies/" ]
+    in Document title [ birthdayDiv, sourceCodeInformation ]
 
 main : Program () Model Message
 main = document { init = \_ -> ( init, Cmd.none)
