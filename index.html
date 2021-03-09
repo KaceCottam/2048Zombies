@@ -5545,8 +5545,23 @@ var $elm$browser$Browser$Document = F2(
 		return {body: body, title: title};
 	});
 var $author$project$Main$RandomizeColor = {$: 'RandomizeColor'};
+var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$json$Json$Encode$string = _Json_wrap;
+var $elm$html$Html$Attributes$stringProperty = F2(
+	function (key, string) {
+		return A2(
+			_VirtualDom_property,
+			key,
+			$elm$json$Json$Encode$string(string));
+	});
+var $elm$html$Html$Attributes$href = function (url) {
+	return A2(
+		$elm$html$Html$Attributes$stringProperty,
+		'href',
+		_VirtualDom_noJavaScriptUri(url));
+};
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5571,6 +5586,28 @@ var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Main$view = function (model) {
 	var mainMenu = model.a;
 	var title = 'Happy ' + (mainMenu.color + ' birthday!');
+	var sourceCodeInformation = A2(
+		$elm$html$Html$div,
+		_List_fromArray(
+			[
+				A2($elm$html$Html$Attributes$style, 'height', '5vh')
+			]),
+		_List_fromArray(
+			[
+				$elm$html$Html$text('Source code hosted at '),
+				function (path) {
+				return A2(
+					$elm$html$Html$a,
+					_List_fromArray(
+						[
+							$elm$html$Html$Attributes$href(path)
+						]),
+					_List_fromArray(
+						[
+							$elm$html$Html$text(path)
+						]));
+			}('https://github.com/KaceCottam/2048Zombies/')
+			]));
 	var birthdayButton = A2(
 		$elm$html$Html$button,
 		_List_fromArray(
@@ -5586,7 +5623,7 @@ var $author$project$Main$view = function (model) {
 		_List_fromArray(
 			[
 				A2($elm$html$Html$Attributes$style, 'background-color', mainMenu.color),
-				A2($elm$html$Html$Attributes$style, 'height', '100vh')
+				A2($elm$html$Html$Attributes$style, 'height', '95vh')
 			]),
 		_List_fromArray(
 			[birthdayButton]));
@@ -5594,7 +5631,7 @@ var $author$project$Main$view = function (model) {
 		$elm$browser$Browser$Document,
 		title,
 		_List_fromArray(
-			[birthdayDiv]));
+			[birthdayDiv, sourceCodeInformation]));
 };
 var $author$project$Main$main = $elm$browser$Browser$document(
 	{

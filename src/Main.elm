@@ -1,7 +1,7 @@
 module Main exposing (main)
 
 import Html exposing (..)
-import Html.Attributes exposing (style)
+import Html.Attributes exposing (style, href)
 import Html.Events exposing (onClick)
 import Array exposing (Array, length)
 import Browser exposing (Document, document)
