@@ -43,7 +43,7 @@ view model = case model of
     in Document title [ birthdayDiv, sourceCodeInformation ]
 
 main : Program () Model Message
-main = document { init = \_ -> ( init, Cmd.none)
+main = document { init = \_ -> ( init, Cmd.none )
                 , subscriptions = always Sub.none
                 , update = update
                 , view = view
