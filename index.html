@@ -5171,8 +5171,13 @@ var $author$project$Main$Level = function (a) {
 	return {$: 'Level', a: a};
 };
 var $author$project$Main$Lose = {$: 'Lose'};
-var $author$project$Main$Rules = {$: 'Rules'};
-var $author$project$Main$Win = {$: 'Win'};
+var $author$project$Main$Reset = function (a) {
+	return {$: 'Reset', a: a};
+};
+var $author$project$Main$Win = function (a) {
+	return {$: 'Win', a: a};
+};
+var $author$project$Main$WinGame = {$: 'WinGame'};
 var $elm$core$Basics$composeR = F3(
 	function (f, g, x) {
 		return g(
@@ -5220,25 +5225,107 @@ var $author$project$Tile$Wall = {$: 'Wall'};
 var $author$project$Tile$Zombie = function (a) {
 	return {$: 'Zombie', a: a};
 };
-var $author$project$Levels$level1 = _List_fromArray(
-	[
+var $elm$html$Html$div = _VirtualDom_node('div');
+var $author$project$Levels$makeLevel = F6(
+	function (title, id, board, nextModelWin, nextModelLose, html) {
+		return {additionalHtml: html, board: board, id: id, initialBoard: board, nextModelOnLose: nextModelLose, nextModelOnWin: nextModelWin, title: title, undoList: _List_Nil};
+	});
+var $elm$html$Html$p = _VirtualDom_node('p');
+var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
+var $author$project$Levels$pText = function (s) {
+	return A2(
+		$elm$html$Html$p,
+		_List_Nil,
 		_List_fromArray(
-		[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall]),
-		_List_fromArray(
-		[$author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Human, $author$project$Tile$Empty, $author$project$Tile$Wall]),
-		_List_fromArray(
-		[$author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Empty, $author$project$Tile$Empty, $author$project$Tile$Wall]),
-		_List_fromArray(
-		[
-			$author$project$Tile$Wall,
-			$author$project$Tile$Empty,
-			$author$project$Tile$Zombie(2),
-			$author$project$Tile$Empty,
-			$author$project$Tile$Wall
-		]),
-		_List_fromArray(
-		[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall])
-	]);
+			[
+				$elm$html$Html$text(s)
+			]));
+};
+var $author$project$Levels$level1 = F2(
+	function (win, lose) {
+		return A6(
+			$author$project$Levels$makeLevel,
+			'An Introduction',
+			1,
+			_List_fromArray(
+				[
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Human, $author$project$Tile$Empty, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Empty, $author$project$Tile$Empty, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[
+						$author$project$Tile$Wall,
+						$author$project$Tile$Empty,
+						$author$project$Tile$Zombie(2),
+						$author$project$Tile$Empty,
+						$author$project$Tile$Wall
+					]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall])
+				]),
+			win,
+			lose,
+			$elm$core$Maybe$Just(
+				A2(
+					$elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$author$project$Levels$pText('Welcome to 2048Zombies!'),
+							$author$project$Levels$pText('You are the zombies. Your goal is to eat all humans.'),
+							$author$project$Levels$pText('Your name has a number. This is how many squares you can move.'),
+							$author$project$Levels$pText('Humans will run in the same direction as the zombies.'),
+							$author$project$Levels$pText('Try to eat some humans by going UP now!')
+						]))));
+	});
+var $author$project$Levels$level2 = F2(
+	function (win, lose) {
+		return A6(
+			$author$project$Levels$makeLevel,
+			'Combinations',
+			2,
+			_List_fromArray(
+				[
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Human, $author$project$Tile$Wall, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Wall, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Wall, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Empty, $author$project$Tile$Wall, $author$project$Tile$Wall]),
+					_List_fromArray(
+					[
+						$author$project$Tile$Wall,
+						$author$project$Tile$Zombie(4),
+						$author$project$Tile$Empty,
+						$author$project$Tile$Empty,
+						$author$project$Tile$Zombie(2),
+						$author$project$Tile$Wall,
+						$author$project$Tile$Wall
+					]),
+					_List_fromArray(
+					[$author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall, $author$project$Tile$Wall])
+				]),
+			win,
+			lose,
+			$elm$core$Maybe$Just(
+				A2(
+					$elm$html$Html$div,
+					_List_Nil,
+					_List_fromArray(
+						[
+							$author$project$Levels$pText('Good job, you ate those humans! Here are some more!'),
+							$author$project$Levels$pText('You might notice that your zombies can not eat the humans without more moves right now.'),
+							$author$project$Levels$pText('Try combining your two zombie groups by moving to the RIGHT!')
+						]))));
+	});
 var $elm$core$Basics$composeL = F3(
 	function (g, f, x) {
 		return g(
@@ -5423,6 +5510,28 @@ var $author$project$Board$mergeUp = A2(
 	A2($elm$core$Basics$composeR, $author$project$Board$mergeRight, $author$project$Board$rotateCCW));
 var $author$project$Main$update = F2(
 	function (message, model) {
+		var playLevels = function (levels) {
+			if (!levels.b) {
+				return $author$project$Main$MainMenu;
+			} else {
+				var x = levels.a;
+				var xs = levels.b;
+				return $author$project$Main$Level(
+					A2(
+						x,
+						A3(
+							$elm$core$List$foldr,
+							F2(
+								function (level, acc) {
+									return $author$project$Main$Win(
+										$author$project$Main$Level(
+											A2(level, acc, $author$project$Main$Lose)));
+								}),
+							$author$project$Main$WinGame,
+							xs),
+						$author$project$Main$Lose));
+			}
+		};
 		var checkWin = A2(
 			$elm$core$Basics$composeR,
 			$elm$core$List$concat,
@@ -5450,63 +5559,106 @@ var $author$project$Main$update = F2(
 		var nextBoard = function (board) {
 			return A3(
 				bool,
-				$author$project$Main$Win,
+				board.nextModelOnWin,
 				A3(
 					bool,
-					$author$project$Main$Lose,
+					board.nextModelOnLose,
 					$author$project$Main$Level(board),
-					checkLose(board)),
-				checkWin(board));
+					checkLose(board.board)),
+				checkWin(board.board));
 		};
 		var _v0 = _Utils_Tuple2(message, model);
-		switch (_v0.a.$) {
-			case 'Play':
-				var _v1 = _v0.a;
-				return _Utils_Tuple2(
-					$author$project$Main$Level($author$project$Levels$level1),
-					$elm$core$Platform$Cmd$none);
-			case 'OpenRules':
-				var _v2 = _v0.a;
-				return _Utils_Tuple2($author$project$Main$Rules, $elm$core$Platform$Cmd$none);
-			case 'Move':
-				if (_v0.b.$ === 'Level') {
-					switch (_v0.a.a.$) {
-						case 'Up':
-							var _v3 = _v0.a.a;
-							var b = _v0.b.a;
-							return _Utils_Tuple2(
-								nextBoard(
-									$author$project$Board$mergeUp(b)),
-								$elm$core$Platform$Cmd$none);
-						case 'Down':
-							var _v4 = _v0.a.a;
-							var b = _v0.b.a;
-							return _Utils_Tuple2(
-								nextBoard(
-									$author$project$Board$mergeDown(b)),
-								$elm$core$Platform$Cmd$none);
-						case 'Left':
-							var _v5 = _v0.a.a;
-							var b = _v0.b.a;
-							return _Utils_Tuple2(
-								nextBoard(
-									$author$project$Board$mergeLeft(b)),
-								$elm$core$Platform$Cmd$none);
-						default:
-							var _v6 = _v0.a.a;
-							var b = _v0.b.a;
-							return _Utils_Tuple2(
-								nextBoard(
-									$author$project$Board$mergeRight(b)),
-								$elm$core$Platform$Cmd$none);
+		_v0$8:
+		while (true) {
+			switch (_v0.a.$) {
+				case 'Play':
+					var _v1 = _v0.a;
+					return _Utils_Tuple2(
+						playLevels(
+							_List_fromArray(
+								[$author$project$Levels$level1, $author$project$Levels$level2])),
+						$elm$core$Platform$Cmd$none);
+				case 'Reset':
+					if (_v0.b.$ === 'Level') {
+						var old = _v0.a.a;
+						var b = _v0.b.a;
+						return _Utils_Tuple2(
+							$author$project$Main$Level(
+								_Utils_update(
+									b,
+									{
+										board: b.initialBoard,
+										undoList: A2(
+											$elm$core$List$cons,
+											$author$project$Main$Reset(old),
+											b.undoList)
+									})),
+							$elm$core$Platform$Cmd$none);
+					} else {
+						break _v0$8;
 					}
-				} else {
-					return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
-				}
-			default:
-				var _v7 = _v0.a;
-				return _Utils_Tuple2($author$project$Main$MainMenu, $elm$core$Platform$Cmd$none);
+				case 'Move':
+					if (_v0.b.$ === 'Level') {
+						switch (_v0.a.a.$) {
+							case 'Up':
+								var _v2 = _v0.a.a;
+								var b = _v0.b.a;
+								return _Utils_Tuple2(
+									nextBoard(
+										_Utils_update(
+											b,
+											{
+												board: $author$project$Board$mergeUp(b.board)
+											})),
+									$elm$core$Platform$Cmd$none);
+							case 'Down':
+								var _v3 = _v0.a.a;
+								var b = _v0.b.a;
+								return _Utils_Tuple2(
+									nextBoard(
+										_Utils_update(
+											b,
+											{
+												board: $author$project$Board$mergeDown(b.board)
+											})),
+									$elm$core$Platform$Cmd$none);
+							case 'Left':
+								var _v4 = _v0.a.a;
+								var b = _v0.b.a;
+								return _Utils_Tuple2(
+									nextBoard(
+										_Utils_update(
+											b,
+											{
+												board: $author$project$Board$mergeLeft(b.board)
+											})),
+									$elm$core$Platform$Cmd$none);
+							default:
+								var _v5 = _v0.a.a;
+								var b = _v0.b.a;
+								return _Utils_Tuple2(
+									nextBoard(
+										_Utils_update(
+											b,
+											{
+												board: $author$project$Board$mergeRight(b.board)
+											})),
+									$elm$core$Platform$Cmd$none);
+						}
+					} else {
+						break _v0$8;
+					}
+				case 'ReturnToMenu':
+					var _v6 = _v0.a;
+					return _Utils_Tuple2($author$project$Main$MainMenu, $elm$core$Platform$Cmd$none);
+				case 'NextLevel':
+					var l = _v0.a.a;
+					return _Utils_Tuple2(l, $elm$core$Platform$Cmd$none);
+				default:
+					break _v0$8;
+			}
 		}
+		return _Utils_Tuple2(model, $elm$core$Platform$Cmd$none);
 	});
 var $elm$browser$Browser$Document = F2(
 	function (title, body) {
@@ -5517,14 +5669,16 @@ var $author$project$Main$Left = {$: 'Left'};
 var $author$project$Main$Move = function (a) {
 	return {$: 'Move', a: a};
 };
-var $author$project$Main$OpenRules = {$: 'OpenRules'};
+var $author$project$Main$NextLevel = function (a) {
+	return {$: 'NextLevel', a: a};
+};
 var $author$project$Main$Play = {$: 'Play'};
 var $author$project$Main$ReturnToMenu = {$: 'ReturnToMenu'};
 var $author$project$Main$Right = {$: 'Right'};
+var $author$project$Main$Rules = {$: 'Rules'};
 var $author$project$Main$Up = {$: 'Up'};
 var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$button = _VirtualDom_node('button');
-var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
 var $elm$html$Html$hr = _VirtualDom_node('hr');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
@@ -5544,12 +5698,9 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$html$Html$p = _VirtualDom_node('p');
 var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
-var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Tile$show = function (tile) {
 	var defaultSize = _List_fromArray(
 		[
@@ -5666,7 +5817,8 @@ var $author$project$Main$view = function (model) {
 				$elm$html$Html$button,
 				_List_fromArray(
 					[
-						$elm$html$Html$Events$onClick($author$project$Main$OpenRules)
+						$elm$html$Html$Events$onClick(
+						$author$project$Main$NextLevel($author$project$Main$Rules))
 					]),
 				_List_fromArray(
 					[
@@ -5723,7 +5875,7 @@ var $author$project$Main$view = function (model) {
 					_List_Nil,
 					_List_fromArray(
 						[
-							$elm$html$Html$text('Walls are brown: they cannot be surpassed by either humans or zombies.')
+							$elm$html$Html$text('Walls are purple: they cannot be surpassed by either humans or zombies.')
 						])),
 					A2(
 					$elm$html$Html$p,
@@ -5781,7 +5933,15 @@ var $author$project$Main$view = function (model) {
 				title,
 				_List_fromArray(
 					[
-						$author$project$Board$show(board),
+						A2(
+						$elm$html$Html$h1,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text(
+								'Level ' + ($elm$core$String$fromInt(board.id) + (': ' + board.title)))
+							])),
+						$author$project$Board$show(board.board),
 						A2(
 						$elm$html$Html$button,
 						_List_fromArray(
@@ -5845,9 +6005,19 @@ var $author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('Return to main menu')
-							]))
+							])),
+						function () {
+						var _v1 = board.additionalHtml;
+						if (_v1.$ === 'Just') {
+							var html = _v1.a;
+							return html;
+						} else {
+							return A2($elm$html$Html$div, _List_Nil, _List_Nil);
+						}
+					}()
 					]));
 		case 'Win':
+			var nextGame = model.a;
 			return A2(
 				$elm$browser$Browser$Document,
 				'Kace Game - Winner!',
@@ -5859,6 +6029,41 @@ var $author$project$Main$view = function (model) {
 						_List_fromArray(
 							[
 								$elm$html$Html$text('You win!')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ReturnToMenu)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Return to Main Menu')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick(
+								$author$project$Main$NextLevel(nextGame))
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Next Level')
+							]))
+					]));
+		case 'WinGame':
+			return A2(
+				$elm$browser$Browser$Document,
+				'Kace Game - Winner!',
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$h1,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Thanks for playing!')
 							])),
 						A2(
 						$elm$html$Html$button,

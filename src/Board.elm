@@ -73,4 +73,4 @@ mergeRightRow tiles =
     tiles
       |> List.reverse
       |> foldl f []
-      |> List.reverse 
+      |> List.reverse

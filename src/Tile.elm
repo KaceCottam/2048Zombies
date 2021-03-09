@@ -6,7 +6,7 @@ import Html exposing (div, text, h2)
 
 type Tile = Empty | Zombie Int | Human | Wall
 
- -- TODO: eventually replace with icons
+-- TODO: eventually replace with icons
 show : Tile -> Html msg
 show tile = 
   let
