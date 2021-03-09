@@ -5502,7 +5502,6 @@ var $author$project$Main$update = F2(
 		var _v0 = _Utils_Tuple2(message, model);
 		if (_v0.a.$ === 'RandomizeColor') {
 			var _v1 = _v0.a;
-			var menu = _v0.b.a;
 			var gen = A2(
 				$elm$random$Random$int,
 				0,
@@ -5548,6 +5547,8 @@ var $author$project$Main$RandomizeColor = {$: 'RandomizeColor'};
 var $elm$html$Html$a = _VirtualDom_node('a');
 var $elm$html$Html$button = _VirtualDom_node('button');
 var $elm$html$Html$div = _VirtualDom_node('div');
+var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$html$Html$h2 = _VirtualDom_node('h2');
 var $elm$json$Json$Encode$string = _Json_wrap;
 var $elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
@@ -5587,10 +5588,10 @@ var $author$project$Main$view = function (model) {
 	var mainMenu = model.a;
 	var title = 'Happy ' + (mainMenu.color + ' birthday!');
 	var sourceCodeInformation = A2(
-		$elm$html$Html$div,
+		$elm$html$Html$h2,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'height', '5vh')
+				A2($elm$html$Html$Attributes$style, 'background-color', 'white')
 			]),
 		_List_fromArray(
 			[
@@ -5616,17 +5617,23 @@ var $author$project$Main$view = function (model) {
 			]),
 		_List_fromArray(
 			[
-				$elm$html$Html$text('Happy birthday!')
+				A2(
+				$elm$html$Html$h1,
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text('Happy birthday!')
+					]))
 			]));
 	var birthdayDiv = A2(
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
 				A2($elm$html$Html$Attributes$style, 'background-color', mainMenu.color),
-				A2($elm$html$Html$Attributes$style, 'height', '95vh')
+				A2($elm$html$Html$Attributes$style, 'height', '100vh')
 			]),
 		_List_fromArray(
-			[birthdayButton]));
+			[birthdayButton, sourceCodeInformation]));
 	return A2(
 		$elm$browser$Browser$Document,
 		title,
