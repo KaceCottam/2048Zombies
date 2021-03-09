@@ -5248,30 +5248,7 @@ var $elm$browser$Browser$document = _Browser_document;
 var $author$project$Main$MainMenu = function (a) {
 	return {$: 'MainMenu', a: a};
 };
-var $elm$random$Random$Seed = F2(
-	function (a, b) {
-		return {$: 'Seed', a: a, b: b};
-	});
-var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
-var $elm$random$Random$next = function (_v0) {
-	var state0 = _v0.a;
-	var incr = _v0.b;
-	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
-};
-var $elm$random$Random$initialSeed = function (x) {
-	var _v0 = $elm$random$Random$next(
-		A2($elm$random$Random$Seed, 0, 1013904223));
-	var state1 = _v0.a;
-	var incr = _v0.b;
-	var state2 = (state1 + x) >>> 0;
-	return $elm$random$Random$next(
-		A2($elm$random$Random$Seed, state2, incr));
-};
-var $author$project$Main$init = $author$project$Main$MainMenu(
-	{
-		color: 'red',
-		seed: $elm$random$Random$initialSeed(42)
-	});
+var $author$project$Main$init = $author$project$Main$MainMenu('red');
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $elm$core$Platform$Sub$batch = _Platform_batch;
@@ -5324,6 +5301,25 @@ var $elm$core$Basics$composeL = F3(
 	});
 var $elm$random$Random$Generate = function (a) {
 	return {$: 'Generate', a: a};
+};
+var $elm$random$Random$Seed = F2(
+	function (a, b) {
+		return {$: 'Seed', a: a, b: b};
+	});
+var $elm$core$Bitwise$shiftRightZfBy = _Bitwise_shiftRightZfBy;
+var $elm$random$Random$next = function (_v0) {
+	var state0 = _v0.a;
+	var incr = _v0.b;
+	return A2($elm$random$Random$Seed, ((state0 * 1664525) + incr) >>> 0, incr);
+};
+var $elm$random$Random$initialSeed = function (x) {
+	var _v0 = $elm$random$Random$next(
+		A2($elm$random$Random$Seed, 0, 1013904223));
+	var state1 = _v0.a;
+	var incr = _v0.b;
+	var state2 = (state1 + x) >>> 0;
+	return $elm$random$Random$next(
+		A2($elm$random$Random$Seed, state2, incr));
 };
 var $elm$time$Time$Name = function (a) {
 	return {$: 'Name', a: a};
@@ -5520,21 +5516,13 @@ var $author$project$Main$update = F2(
 		} else {
 			if (_v0.a.a.$ === 'Just') {
 				var color = _v0.a.a.a;
-				var menu = _v0.b.a;
 				return _Utils_Tuple2(
-					$author$project$Main$MainMenu(
-						_Utils_update(
-							menu,
-							{color: color})),
+					$author$project$Main$MainMenu(color),
 					$elm$core$Platform$Cmd$none);
 			} else {
 				var _v2 = _v0.a.a;
-				var menu = _v0.b.a;
 				return _Utils_Tuple2(
-					$author$project$Main$MainMenu(
-						_Utils_update(
-							menu,
-							{color: 'white'})),
+					$author$project$Main$MainMenu('white'),
 					$elm$core$Platform$Cmd$none);
 			}
 		}
@@ -5585,8 +5573,8 @@ var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $author$project$Main$view = function (model) {
-	var mainMenu = model.a;
-	var title = 'Happy ' + (mainMenu.color + ' birthday!');
+	var color = model.a;
+	var title = 'Happy ' + (color + ' birthday!');
 	var sourceCodeInformation = A2(
 		$elm$html$Html$h2,
 		_List_fromArray(
@@ -5630,7 +5618,7 @@ var $author$project$Main$view = function (model) {
 		$elm$html$Html$div,
 		_List_fromArray(
 			[
-				A2($elm$html$Html$Attributes$style, 'background-color', mainMenu.color),
+				A2($elm$html$Html$Attributes$style, 'background-color', color),
 				A2($elm$html$Html$Attributes$style, 'height', '95vh')
 			]),
 		_List_fromArray(
