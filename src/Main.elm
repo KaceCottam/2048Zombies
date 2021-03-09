@@ -35,8 +35,8 @@ view model = case model of
     let
       title = "Happy " ++ color ++ " birthday!"
       birthdayButton = button [ onClick RandomizeColor ] [ h1 [] [ text "Happy birthday!" ] ]
-      birthdayDiv = div [ style "background-color" color, style "height" "95vh" ] [ birthdayButton ]
-      sourceCodeInformation = h2 [ style "background-color" "white", style "height" "5vh" ]
+      birthdayDiv = div [ style "background-color" color, style "height" "90vh" ] [ birthdayButton ]
+      sourceCodeInformation = h2 [ style "background-color" "white", style "height" "10vh" ]
         [ text "Source code hosted at "
         , (\path -> a [ href path ] [ text path ]) "https://github.com/KaceCottam/2048Zombies/"
         ]
