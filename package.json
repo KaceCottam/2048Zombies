@@ -4,7 +4,8 @@
   "main": "src/Main.elm",
   "scripts": {
     "reactor": "elm reactor",
-    "make": "elm make src/Main.elm"
+    "make": "elm make src/Main.elm",
+    "test": "elm-test"
   },
   "author": "Kace Cottam",
   "license": "MIT",

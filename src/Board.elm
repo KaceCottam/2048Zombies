@@ -19,22 +19,22 @@ reverse : Board -> Board
 reverse = List.reverse << map List.reverse
 
 mergeRight : Board -> Board
-mergeRight = map mergeRightRow
+mergeRight =  map <| mergeRightRow << List.reverse
 
 mergeLeft : Board -> Board
-mergeLeft = reverse << mergeRight << reverse
+mergeLeft = map List.reverse << mergeRight << map List.reverse
 
 mergeUp : Board -> Board
-mergeUp = rotateCCW >> mergeLeft >> rotateCW
+mergeUp = rotateCW >> mergeRight >> rotateCCW
 
 mergeDown : Board -> Board
-mergeDown = rotateCW >> mergeLeft >> rotateCCW
+mergeDown = rotateCCW >> mergeRight >> rotateCW
 
 rotateCW : Board -> Board
-rotateCW = transpose << List.reverse
+rotateCW = transpose << reverse
 
 rotateCCW : Board -> Board
-rotateCCW = List.reverse << transpose
+rotateCCW = transpose
 
 -- TODO: discover a tail-recursive way of doing this
 transpose : Board -> Board
@@ -59,11 +59,11 @@ mergeRightRow tiles =
     f : Tile -> List Tile -> List Tile
     f nextTile acc  = case (acc, nextTile) of
       ([], a) -> [a]
-      (Wall::xs, a) -> a :: Wall :: xs
       (_, Wall)  -> Wall :: acc
       (Empty::_, a) -> a :: acc
-      (Zombie n :: xs, Empty) -> Zombie (n - 1) :: xs
-      (Zombie 1 :: xs, a) -> a :: Empty :: xs
+      (Wall::_, a) -> a :: acc
+      (Zombie 1 :: xs, Empty) -> Empty :: Empty :: xs
+      (Zombie n :: xs, Empty) -> Zombie (n - 1) :: Empty :: xs
       (Zombie n :: xs, Human) -> Zombie n :: Empty :: xs
       (Zombie n1 :: xs, Zombie n2) -> Zombie (n1 + n2) :: Empty :: xs
       (Human::_, Human) -> Human :: acc

@@ -1,4 +1,4 @@
-module Tile exposing (Tile(..), show, isEmpty)
+module Tile exposing (Tile(..), show, isEmpty, isHuman, isZombie)
 
 import Html exposing (Html)
 import Html.Attributes exposing (style)
@@ -10,7 +10,7 @@ type Tile = Empty | Zombie Int | Human | Wall
 show : Tile -> Html msg
 show tile = 
   let
-    defaultSize = [ style "height" "10px", style "width" "10px"]
+    defaultSize = [ style "height" "50px", style "width" "50px"]
     backgroundColor = style "background-color"
     border = style "border"
   in
@@ -25,3 +25,13 @@ isEmpty : Tile -> Bool
 isEmpty t = case t of
   Empty -> True
   _     -> False
+
+isHuman : Tile -> Bool
+isHuman t = case t of
+  Human -> True
+  _     -> False
+
+isZombie : Tile -> Bool
+isZombie t = case t of
+  Zombie _ -> True
+  _        -> False
