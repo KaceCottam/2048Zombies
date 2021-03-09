@@ -1,0 +1,12 @@
+{
+  "name": "2048zombies",
+  "version": "1.0.0",
+  "main": "src/Main.elm",
+  "scripts": {
+    "reactor": "elm reactor",
+    "make": "elm make src/Main.elm"
+  },
+  "author": "Kace Cottam",
+  "license": "MIT",
+  "description": ""
+}
