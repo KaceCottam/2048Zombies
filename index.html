@@ -5517,8 +5517,11 @@ var $author$project$Main$Play = {$: 'Play'};
 var $author$project$Main$ReturnToMenu = {$: 'ReturnToMenu'};
 var $author$project$Main$Right = {$: 'Right'};
 var $author$project$Main$Up = {$: 'Up'};
+var $elm$html$Html$br = _VirtualDom_node('br');
 var $elm$html$Html$button = _VirtualDom_node('button');
+var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$html$Html$hr = _VirtualDom_node('hr');
 var $elm$virtual_dom$VirtualDom$Normal = function (a) {
 	return {$: 'Normal', a: a};
 };
@@ -5536,7 +5539,6 @@ var $elm$html$Html$Events$onClick = function (msg) {
 		'click',
 		$elm$json$Json$Decode$succeed(msg));
 };
-var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
@@ -5547,6 +5549,19 @@ var $author$project$Tile$show = function (tile) {
 			A2($elm$html$Html$Attributes$style, 'height', '50px'),
 			A2($elm$html$Html$Attributes$style, 'width', '50px')
 		]);
+	var centeredText = function (s) {
+		return A2(
+			$elm$html$Html$h1,
+			_List_fromArray(
+				[
+					A2($elm$html$Html$Attributes$style, 'vertical-align', 'middle'),
+					A2($elm$html$Html$Attributes$style, 'text-align', 'center')
+				]),
+			_List_fromArray(
+				[
+					$elm$html$Html$text(s)
+				]));
+	};
 	var border = $elm$html$Html$Attributes$style('border');
 	var backgroundColor = $elm$html$Html$Attributes$style('background-color');
 	switch (tile.$) {
@@ -5567,11 +5582,11 @@ var $author$project$Tile$show = function (tile) {
 					border('solid'),
 					A2(
 						$elm$core$List$cons,
-						backgroundColor('green'),
+						backgroundColor('lightgreen'),
 						defaultSize)),
 				_List_fromArray(
 					[
-						$elm$html$Html$text(
+						centeredText(
 						'Z' + $elm$core$String$fromInt(n))
 					]));
 		case 'Human':
@@ -5586,7 +5601,7 @@ var $author$project$Tile$show = function (tile) {
 						defaultSize)),
 				_List_fromArray(
 					[
-						$elm$html$Html$text('H')
+						centeredText('H')
 					]));
 		default:
 			return A2(
@@ -5596,7 +5611,7 @@ var $author$project$Tile$show = function (tile) {
 					border('outset'),
 					A2(
 						$elm$core$List$cons,
-						backgroundColor('brown'),
+						backgroundColor('darkbrown'),
 						defaultSize)),
 				_List_Nil);
 	}
@@ -5661,6 +5676,44 @@ var $author$project$Main$view = function (model) {
 				title,
 				_List_fromArray(
 					[titleText, playButton]));
+		case 'Rules':
+			var title = '2048 Zombies - Rules';
+			var content = _List_fromArray(
+				[
+					$elm$html$Html$text('2048 Zombies is a puzzle game where the player controls zombies so that they can eat humans.'),
+					$elm$html$Html$text('Every movement the zombies do, the humans will also do.'),
+					A2($elm$html$Html$br, _List_Nil, _List_Nil),
+					$elm$html$Html$text('Walls are brown: they cannot be surpassed by either humans or zombies.'),
+					$elm$html$Html$text('Humans are tan with an \'H\': they can be eaten by zombies to give zombies +1 movement.'),
+					$elm$html$Html$text('Zombies are green with a \'Z\' and a number in their name: This number is the amount of spaces they are allowed to move before decaying.'),
+					A2($elm$html$Html$br, _List_Nil, _List_Nil),
+					$elm$html$Html$text('You can win if all the humans are eaten, but you lose if all the zombies decay.')
+				]);
+			return A2(
+				$elm$browser$Browser$Document,
+				title,
+				_List_fromArray(
+					[
+						A2(
+						$elm$html$Html$h1,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Rules')
+							])),
+						A2($elm$html$Html$hr, _List_Nil, _List_Nil),
+						A2($elm$html$Html$div, _List_Nil, content),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ReturnToMenu)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Return to Main Menu')
+							]))
+					]));
 		case 'Level':
 			var board = model.a;
 			var title = 'Kace Game - Level 1';
@@ -5741,7 +5794,23 @@ var $author$project$Main$view = function (model) {
 				'Kace Game - Winner!',
 				_List_fromArray(
 					[
-						$elm$html$Html$text('You win!')
+						A2(
+						$elm$html$Html$h1,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('You win!')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ReturnToMenu)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Return to Main Menu')
+							]))
 					]));
 		default:
 			return A2(
@@ -5749,7 +5818,23 @@ var $author$project$Main$view = function (model) {
 				'Kace Game - Loser!',
 				_List_fromArray(
 					[
-						$elm$html$Html$text('You lose!')
+						A2(
+						$elm$html$Html$h1,
+						_List_Nil,
+						_List_fromArray(
+							[
+								$elm$html$Html$text('You lose!')
+							])),
+						A2(
+						$elm$html$Html$button,
+						_List_fromArray(
+							[
+								$elm$html$Html$Events$onClick($author$project$Main$ReturnToMenu)
+							]),
+						_List_fromArray(
+							[
+								$elm$html$Html$text('Return to Main Menu')
+							]))
 					]));
 	}
 };

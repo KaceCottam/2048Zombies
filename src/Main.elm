@@ -14,7 +14,7 @@ import Levels exposing (level1)
 import Board
 import Board
 
-type Model = MainMenu | Level Board | Win | Lose
+type Model = MainMenu | Rules | Level Board | Win | Lose
 
 type Direction = Up | Down | Left | Right
 
@@ -44,6 +44,28 @@ view model = case model of
       titleText = h1 [ style "text-color" "green" ] [ text "2048 Zombies" ]
       playButton = button [ onClick Play ] [ h1 [] [ text "Play game!" ] ]
     in Document title [ titleText, playButton ]
+
+  Rules ->
+    let
+      title = "2048 Zombies - Rules"
+      content = 
+        [ text "2048 Zombies is a puzzle game where the player controls zombies so that they can eat humans."
+        , text "Every movement the zombies do, the humans will also do."
+        , br [] []
+        , text "Walls are brown: they cannot be surpassed by either humans or zombies."
+        , text "Humans are tan with an 'H': they can be eaten by zombies to give zombies +1 movement."
+        , text "Zombies are green with a 'Z' and a number in their name: This number is the amount of spaces they are allowed to move before decaying."
+        , br [] []
+        , text "You can win if all the humans are eaten, but you lose if all the zombies decay."
+        ]
+
+    in Document title
+      [ h1 [] [ text "Rules" ]
+      , hr [] []
+      , div [] content
+      , button [onClick ReturnToMenu] [ text "Return to Main Menu" ]
+      ]
+
   Level board ->
     let
       title = "Kace Game - Level 1"
@@ -56,8 +78,8 @@ view model = case model of
       , button [ onClick Play ] [ text "Reset" ] 
       , button [ onClick ReturnToMenu ] [ text "Return to main menu" ] 
       ]
-  Win -> Document "Kace Game - Winner!" [ text "You win!" ]
-  Lose -> Document "Kace Game - Loser!" [ text "You lose!" ]
+  Win -> Document "Kace Game - Winner!" [ h1 [] [ text "You win!" ], button [onClick ReturnToMenu] [ text "Return to Main Menu" ] ]
+  Lose -> Document "Kace Game - Loser!" [ h1 [] [ text "You lose!" ], button [onClick ReturnToMenu] [ text "Return to Main Menu" ] ]
 
 main : Program () Model Message
 main = document { init = \_ -> ( MainMenu, Cmd.none )
