@@ -3,7 +3,7 @@ module BoardTests exposing (..)
 import Test exposing (Test, describe, test)
 import Expect
 
-import Board exposing (mergeLeft, mergeRight, mergeUp, mergeDown, rotateCCW, rotateCW)
+import Board
 import Tile exposing (Tile(..))
 
 suite : Test

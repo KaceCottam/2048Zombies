@@ -17,7 +17,7 @@ type Model = MainMenu | Rules | Level (LevelT Model Message) | Win Model | WinGa
 
 type Direction = Up | Down | Left | Right
 
-type Message = Play | Move Direction | ReturnToMenu | NextLevel Model | Reset Board | Undo
+type Message = Play | Move Direction | ReturnToMenu | NextLevel Model | Reset Board
 
 update : Message -> Model -> ( Model, Cmd Message )
 update message model =
